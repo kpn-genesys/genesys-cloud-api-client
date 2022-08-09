@@ -79,10 +79,7 @@ export default class GenesysCloud {
         id: status,
       },
     };
-    const { data: response } = await this.instance.patch<IUserPresence>(
-      `/api/v2/users/${userId}/presences/purecloud`,
-      body,
-    );
+    const { data: response } = await this.instance.patch<IUserPresence>(`/api/v2/users/${userId}/presences/purecloud`, body);
     return response;
   }
 
@@ -103,9 +100,7 @@ export default class GenesysCloud {
   }
 
   async getQueuesForUser(userId: string): Promise<IUserQueue[]> {
-    const { data: response } = await this.instance.get<IGetUserQueuesResponse>(
-      `/api/v2/users/${userId}/queues?pageSize=999&pageNumber=1`,
-    );
+    const { data: response } = await this.instance.get<IGetUserQueuesResponse>(`/api/v2/users/${userId}/queues?pageSize=999&pageNumber=1`);
     return response.entities;
   }
 
@@ -115,9 +110,7 @@ export default class GenesysCloud {
   }
 
   async getAllRoutingSkills(): Promise<IRoutingSkill[]> {
-    const { data: response } = await this.instance.get<IGetRoutingSkillsResponse>(
-      '/api/v2/routing/skills?pageSize=999&pageNumber=1',
-    );
+    const { data: response } = await this.instance.get<IGetRoutingSkillsResponse>('/api/v2/routing/skills?pageSize=999&pageNumber=1');
     return response.entities;
   }
 
@@ -146,9 +139,7 @@ export default class GenesysCloud {
   }
 
   async getAllQueues(): Promise<ISimplifiedQueue[]> {
-    const response = await this.instance.get<IGetSimplifiedQueuesResponse>(
-      '/api/v2/routing/queues/divisionviews/all?pageSize=999&pageNumber=1',
-    );
+    const response = await this.instance.get<IGetSimplifiedQueuesResponse>('/api/v2/routing/queues/divisionviews/all?pageSize=999&pageNumber=1');
     return response.data.entities;
   }
 
@@ -160,8 +151,8 @@ export default class GenesysCloud {
     await Promise.all(requests);
   }
 
-  async createCallback(body: object): Promise<string> {
-    const response = await this.instance.post<ICreateCallbackResponse>('/api/v2/conversations/callbacks', body);
-    return response.data.conversation.id;
+  async createCallback(body: object): Promise<ICreateCallbackResponse> {
+    const { data: response } = await this.instance.post<ICreateCallbackResponse>('/api/v2/conversations/callbacks', body);
+    return response;
   }
 }
