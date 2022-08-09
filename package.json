@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kpn-genesys/genesys-cloud-api-client/issues"
   },
-  "homepage": "https://github.com/kpn-genesys/genesys-cloud-api-client#readme"
+  "homepage": "https://github.com/kpn-genesys/genesys-cloud-api-client#readme",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
 }
