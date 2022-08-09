@@ -11,21 +11,21 @@ export interface IAddress {
 }
 
 export interface IAuthorization {
-  roles: Array<{ id: string; name: string }>;
-  permissions: Array<string>;
-  permissionPolicies: Array<{
+  roles: { id: string; name: string }[];
+  permissions: string[];
+  permissionPolicies: {
     domain: string;
     entityName: string;
     allowConditions: boolean;
-    resourceConditionNode?: Object;
-    namedResources?: Array<string>;
+    resourceConditionNode?: object;
+    namedResources?: string[];
     resourceCondition?: string;
-    actionSet: Array<string>;
-  }>;
+    actionSet: string[];
+  }[];
 }
 
 export interface IGetMembersResponse {
-  entities: Array<IQueueMember>;
+  entities: IQueueMember[];
   pageSize: number;
   pageNumber: number;
   firstUri: string;
@@ -34,7 +34,7 @@ export interface IGetMembersResponse {
 }
 
 export interface IGetRoutingSkillsResponse {
-  entities: Array<IRoutingSkill>;
+  entities: IRoutingSkill[];
   pageSize: number;
   pageNumber: number;
   total: number;
@@ -46,7 +46,7 @@ export interface IGetRoutingSkillsResponse {
 }
 
 export interface IGetUserQueuesResponse {
-  entities: Array<IUserQueue>;
+  entities: IUserQueue[];
   pageSize: number;
   pageNumber: number;
   total: number;
@@ -118,8 +118,8 @@ export interface ISearchResponse {
   pageNumber: number;
   currentPage: string;
   nextPage?: string;
-  types: Array<string>;
-  results: Array<IUser>;
+  types: string[];
+  results: IUser[];
 }
 
 export interface IUser {
@@ -130,10 +130,10 @@ export interface IUser {
     name: string;
     selfUri: string;
   };
-  groups?: Array<{
+  groups?: {
     id: string;
     selfUri: string;
-  }>;
+  }[];
   presence?: IUserPresence;
   station?: {
     associatedStation?: IStation;
@@ -141,13 +141,13 @@ export interface IUser {
     defaultStation?: IDefaultStation;
     lastAssociatedStation?: IStation | IDefaultStation;
   };
-  chat: Object;
+  chat: object;
   email: string;
-  primaryContactInfo: Array<IAddress>;
-  addresses: Array<IAddress>;
+  primaryContactInfo: IAddress[];
+  addresses: IAddress[];
   state: string;
   username: string;
-  images?: Array<IImage>;
+  images?: IImage[];
   version: number;
   authorization?: IAuthorization;
   acdAutoAnswer: boolean;
@@ -202,7 +202,7 @@ export interface IDefaultStation {
 }
 
 export interface IGetSimplifiedQueuesResponse {
-  entities: Array<ISimplifiedQueue>;
+  entities: ISimplifiedQueue[];
   pageSize: number;
   pageNumber: number;
   total: number;
