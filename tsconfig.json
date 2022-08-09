@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "module": "commonjs",
+    "target": "ES2019",
     "declaration": true,
     "outDir": "lib",
-    "strict": true,
+    "strict": false,
     "removeComments": true
   },
   "include": ["src"],
