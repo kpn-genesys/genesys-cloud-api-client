@@ -13,6 +13,7 @@ import {
   IGetMembersResponse,
   IGetSimplifiedQueuesResponse,
   ISimplifiedQueue,
+  ICreateCallbackResponse,
 } from './interfaces/genesyscloud';
 import { UserStatus } from './enums';
 import { NotFoundError } from './errors';
@@ -157,5 +158,10 @@ export default class GenesysCloud {
       return this.instance.post(`/api/v2/routing/queues/${queueId}/members`, body);
     });
     await Promise.all(requests);
+  }
+
+  async createCallback(body: object): Promise<string> {
+    const response = await this.instance.post<ICreateCallbackResponse>('/api/v2/conversations/callbacks', body);
+    return response.data.conversation.id;
   }
 }

@@ -223,3 +223,14 @@ export interface ISimplifiedQueue {
   };
   selfUri: string;
 }
+
+export interface ICreateCallbackResponse {
+  conversation: {
+    id: string;
+    selfUri: string;
+  };
+  callbackIdentifiers: {
+    type: string;
+    id: string;
+  }[];
+}
