@@ -31,12 +31,12 @@ export default class GenesysCloud {
       auth: { username: id, password: secret },
     };
     const { data: response } = await axios.post<IAcessToken>('https://login.mypurecloud.de/oauth/token', body, config);
-    this.instance.defaults.headers.common['Authorization'] = `Bearer ${response.access_token}`;
+    this.instance.defaults.headers.common.Authorization = `Bearer ${response.access_token}`;
     return response;
   }
 
   setAccessToken(token: IAcessToken) {
-    this.instance.defaults.headers.common['Authorization'] = `Bearer ${token.access_token}`;
+    this.instance.defaults.headers.common.Authorization = `Bearer ${token.access_token}`;
   }
 
   async getUserByEmail(email: string): Promise<IUser> {
@@ -53,9 +53,9 @@ export default class GenesysCloud {
   async getUsersByEmail(emails: string[]): Promise<IUser[]> {
     const uniqeEmails = [...new Set(emails)];
     const chunkedEmails = chunk(uniqeEmails, 50);
-    const requests = chunkedEmails.map((chunk) => {
+    const requests = chunkedEmails.map((c) => {
       const body = {
-        query: [{ type: 'EXACT', fields: ['email'], values: chunk }],
+        query: [{ type: 'EXACT', fields: ['email'], values: c }],
         expand: ['groups', 'presence', 'station'],
         enforcePermissions: true,
         pageSize: 999,
@@ -87,8 +87,8 @@ export default class GenesysCloud {
 
   async setBulkUserStatus(userIds: string[], status: UserStatus): Promise<IUserPresence[]> {
     const chunkedUserIds = chunk(userIds, 50);
-    const requests = chunkedUserIds.map((chunk) => {
-      const body = chunk.map((userId) => ({
+    const requests = chunkedUserIds.map((c) => {
+      const body = c.map((userId) => ({
         id: userId,
         source: 'PURECLOUD',
         presenceDefinition: {
@@ -135,7 +135,6 @@ export default class GenesysCloud {
       }
       return entities.map((entity) => entity.user.email);
     } catch (error) {
-      console.error(error);
       if (error.response?.status === 404) throw new NotFoundError(`queue with id ${queueId} not found`);
       throw new Error('failed to get queue members');
     }

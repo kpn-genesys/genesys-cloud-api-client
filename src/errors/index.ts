@@ -1,3 +1,5 @@
+/* tslint:disable:max-classes-per-file */
+
 export class UnauthorizedError extends Error {
   status: number;
 
